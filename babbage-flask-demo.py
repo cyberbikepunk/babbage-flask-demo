@@ -1,6 +1,6 @@
 from os import path
 from flask import Flask
-from os.path import join
+from os.path import join, dirname
 from sqlalchemy import create_engine
 from babbage.manager import JSONCubeManager
 from babbage.api import configure_api
@@ -12,7 +12,7 @@ app.debug = True
 # set a 'SECRET_KEY' to enable the Flask session cookies
 app.config['SECRET_KEY'] = '<replace with a secret key>'
 
-models_directory = path.dirname(join(__file__, 'models'))
+models_directory = join(dirname(__file__), 'models')
 manager = JSONCubeManager(engine, models_directory)
 blueprint = configure_api(app, manager)
 app.register_blueprint(blueprint, url_prefix='/api/babbage')
